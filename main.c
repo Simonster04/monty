@@ -126,13 +126,15 @@ void call_instruct(char *opcode, char *val, int line)
 
 void exec_line(op_func f, char *opcode, char *val, int line)
 {
-	int i = 0;
+	int i = 0, aux = 0;
+	stack_t *new_stack = NULL;
 
 	if (strcmp(opcode, "push") == 0)
 	{
 		if (val && val[0] == '-')
 		{
 			val = val + 1;
+			aux = -1;
 		}
 		if (!val)
 		{
@@ -149,6 +151,8 @@ void exec_line(op_func f, char *opcode, char *val, int line)
 			}
 			i++;
 		}
+		new_stack = new_malloc(atoi(val) * aux);
+		f(&new_stack, line);
 	}
 	else
 		f(&head, line);
