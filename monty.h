@@ -1,12 +1,12 @@
 #ifndef MONTY_H
 #define MONTY_H
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 #include <ctype.h>
-#include <stdarg.h>
 
 
 /**
@@ -25,6 +25,8 @@ typedef struct stack_s
 	struct stack_s *next;
 } stack_t;
 
+extern stack_t *head;
+
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
@@ -39,9 +41,8 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-extern stack_t *head;
-
 typedef void (*op_func)(stack_t **, unsigned int);
+
 
 void open_file(FILE *demo);
 void call_instruct(char *opcode, char *val, int line);

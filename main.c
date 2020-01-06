@@ -13,7 +13,7 @@ int main(int ac, char **av)
 {
 	FILE *demo;
 
-	if (ac == '\0' || ac != 2)
+	if (ac != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
@@ -39,6 +39,7 @@ int main(int ac, char **av)
 	}
 
 	open_file(demo);
+	fclose(demo);
 	return (0);
 }
 
@@ -126,7 +127,7 @@ void call_instruct(char *opcode, char *val, int line)
 
 void exec_line(op_func f, char *opcode, char *val, int line)
 {
-	int i = 0, aux = 0;
+	int i = 0, aux = 1;
 	stack_t *new_stack = NULL;
 
 	if (strcmp(opcode, "push") == 0)
