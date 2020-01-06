@@ -66,10 +66,10 @@ void open_file(FILE *demo)
 		}
 
 		opcode = strtok(line_ptr, "\n ");
-		if (!opcode)
-			break;
-		val = strtok(NULL, "\n ");
-
+		while (val)
+		{
+			val = strtok(NULL, "\n ");
+		}
 		call_instruct(opcode, val, line);
 
 		line++;
