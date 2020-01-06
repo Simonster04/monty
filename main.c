@@ -61,7 +61,7 @@ void open_file(FILE *demo)
 	{
 		if (!line_ptr)
 		{
-			fprintf(stderr, "Error: malloc failed");
+			fprintf(stderr, "Error: malloc failed\n");
 			exit(EXIT_FAILURE);
 		}
 
