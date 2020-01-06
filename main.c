@@ -40,6 +40,7 @@ int main(int ac, char **av)
 
 	open_file(demo);
 	fclose(demo);
+	free_stack();
 	return (0);
 }
 

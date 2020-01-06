@@ -55,3 +55,24 @@ stack_t *new_malloc(int n)
 	new_node->n = n;
 	return (new_node);
 }
+
+/**
+ * free_slack - free all nodes in a slack
+ */
+
+void free_stack(void)
+{
+	stack_t *aux;
+
+	if (!head)
+	{
+		return;
+	}
+
+	while (head)
+	{
+		aux = head;
+		head = head->next;
+		free(aux);
+	}
+}

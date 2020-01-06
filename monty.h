@@ -55,5 +55,6 @@ void stack_swap(stack_t **stack, unsigned int line_number);
 void stack_add(stack_t **stack, unsigned int line_number);
 void stack_nop(stack_t **stack, unsigned int line_number);
 stack_t *new_malloc(int n);
+void free_stack(void);
 
 #endif
