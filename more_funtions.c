@@ -79,8 +79,8 @@ void free_stack(void)
 
 /**
  * queue_add - adds a node to the queue.
- * @new_node: Pointer to the new node.
- * @ln: Interger representing the line number of of the opcode.
+ * @queue: Pointer to the new node.
+ * @line_number: Interger representing the line number of of the opcode.
  */
 void queue_add(stack_t **queue, unsigned int line_number)
 {
