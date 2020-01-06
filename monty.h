@@ -45,8 +45,8 @@ typedef void (*op_func)(stack_t **, unsigned int);
 
 
 void open_file(FILE *demo);
-void call_instruct(char *opcode, char *val, int line);
-void exec_line(op_func f, char *opcode, char *val, int line);
+void call_instruct(char *opcode, char *val, int line, int lifo);
+void exec_line(op_func f, char *opcode, char *val, int line, int lifo);
 void stack_concat(stack_t **stack, unsigned int line_number);
 void stack_print(stack_t **stack, unsigned int line_number);
 void stack_printtop(stack_t **stack, unsigned int line_number);
@@ -56,5 +56,10 @@ void stack_add(stack_t **stack, unsigned int line_number);
 void stack_nop(stack_t **stack, unsigned int line_number);
 stack_t *new_malloc(int n);
 void free_stack(void);
+void stack_sub(stack_t **stack, unsigned int line_number);
+void stack_div(stack_t **stack, unsigned int line_number);
+void stack_mod(stack_t **stack, unsigned int line_number);
+void stack_mul(stack_t **stack, unsigned int line_number);
+void queue_add(stack_t **queue, unsigned int line_number);
 
 #endif

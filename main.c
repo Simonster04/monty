@@ -52,7 +52,7 @@ int main(int ac, char **av)
 
 void open_file(FILE *demo)
 {
-	int line = 1;
+	int line = 1, lifo = 0;
 	char *line_ptr = NULL;
 	char *opcode, *val;
 	size_t size = 0;
@@ -66,11 +66,14 @@ void open_file(FILE *demo)
 		}
 
 		opcode = strtok(line_ptr, "\n ");
-		while (val)
-		{
-			val = strtok(NULL, "\n ");
-		}
-		call_instruct(opcode, val, line);
+		if (!opcode)
+			break;
+		val = strtok(NULL, "\n ");
+
+		if (strcmp(opcode, "queue") == 0)
+			lifo = 1;
+
+		call_instruct(opcode, val, line, lifo);
 
 		line++;
 	}
@@ -82,9 +85,10 @@ void open_file(FILE *demo)
  * @opcode: given istruction
  * @val: given value to apply the instruction
  * @line: line number of opcode
+ * @lifo: variable 0 if lifo, 1 if queue
  */
 
-void call_instruct(char *opcode, char *val, int line)
+void call_instruct(char *opcode, char *val, int line, int lifo)
 {
 	int i = 0, aux = 1;
 
@@ -96,6 +100,10 @@ void call_instruct(char *opcode, char *val, int line)
 		{"swap", stack_swap},
 		{"add", stack_add},
 		{"nop", stack_nop},
+		{"sub", stack_sub},
+		{"mul", stack_mul},
+		{"div", stack_div},
+		{"mod", stack_mod},
 		{NULL, NULL}
 	};
 
@@ -106,7 +114,7 @@ void call_instruct(char *opcode, char *val, int line)
 	{
 		if (strcmp(opcode, func_list[i].opcode) == 0)
 		{
-			exec_line(func_list[i].f, opcode, val, line);
+			exec_line(func_list[i].f, opcode, val, line, lifo);
 			aux = 0;
 		}
 		i++;
@@ -124,9 +132,10 @@ void call_instruct(char *opcode, char *val, int line)
  * @opcode: opcode
  * @val: value
  * @line: line number
+ * @lifo: variable 0 if lifo, 1 if queue
  */
 
-void exec_line(op_func f, char *opcode, char *val, int line)
+void exec_line(op_func f, char *opcode, char *val, int line, int lifo)
 {
 	int i = 0, aux = 1;
 	stack_t *new_stack = NULL;
@@ -154,7 +163,10 @@ void exec_line(op_func f, char *opcode, char *val, int line)
 			i++;
 		}
 		new_stack = new_malloc(atoi(val) * aux);
-		f(&new_stack, line);
+		if (lifo == 0)
+			f(&new_stack, line);
+		if (lifo == 1)
+			queue_add(&new_stack, line);
 	}
 	else
 		f(&head, line);

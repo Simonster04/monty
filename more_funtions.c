@@ -76,3 +76,29 @@ void free_stack(void)
 		free(aux);
 	}
 }
+
+/**
+ * queue_add - adds a node to the queue.
+ * @new_node: Pointer to the new node.
+ * @ln: Interger representing the line number of of the opcode.
+ */
+void queue_add(stack_t **queue, unsigned int line_number)
+{
+	stack_t *aux;
+
+	(void)line_number;
+	if (!queue || !(*queue))
+		exit(EXIT_FAILURE);
+
+	if (!head)
+	{
+		head = *queue;
+		return;
+	}
+	aux = head;
+	while (aux->next)
+		aux = aux->next;
+
+	aux->next = *queue;
+	(*queue)->prev = aux;
+}
